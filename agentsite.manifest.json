@@ -6,7 +6,7 @@
   "request_endpoint": "/v1/requests",
   "capabilities_endpoint": "/.well-known/agentsite/capabilities",
   "authentication": ["bearer"],
-  "capabilities": ["customers.lookup"],
+  "capabilities": ["catalog.search_products", "insurance.create_quote"],
   "metadata": {
     "supports_streaming": false,
     "environment": "development"
