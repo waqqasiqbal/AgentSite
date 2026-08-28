@@ -65,6 +65,16 @@ This project is at the vision and foundation stage. The first milestone is to tu
 
 See [ROADMAP.md](ROADMAP.md) for the current plan and [docs/architecture.md](docs/architecture.md) for the initial architecture.
 
+## First implementation
+
+The repository now contains a small Python reference runtime. It exposes only typed capabilities to the model and keeps company credentials and resource clients inside server-side adapters. A machine-readable discovery document is available in [`agentsite.manifest.json`](agentsite.manifest.json), and a local example can be started with:
+
+```bash
+python examples/local_agent.py
+```
+
+The resource boundary and connection patterns are described in [docs/resource-connection.md](docs/resource-connection.md). This is an early protocol/runtime experiment, not yet a production deployment package.
+
 ## Contributing
 
 The project is public and intended to be built openly. Start with the roadmap, open an issue to discuss substantial changes, and keep every capability explicit about its permissions, inputs, outputs, and side effects.
