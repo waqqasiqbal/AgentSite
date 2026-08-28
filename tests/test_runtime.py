@@ -2,6 +2,7 @@ from agentsite.capabilities import Capability, CapabilityRegistry
 from agentsite.models import AgentRequest, ModelTurn, ToolCall
 from agentsite.provider import ScriptedProvider
 from agentsite.runtime import AgentRuntime
+from agentsite.manifest import AgentManifest
 
 
 def registry():
@@ -62,3 +63,10 @@ def test_invalid_arguments_never_reach_adapter():
     ).handle(AgentRequest("Find customer", "u1", "t1"))
     assert response.results[0].status == "failed"
     assert calls == []
+
+
+def test_manifest_is_machine_readable():
+    manifest = AgentManifest.from_dict(
+        {"name": "demo", "display_name": "Demo", "description": "A demo", "capabilities": ["customers.lookup"]}
+    )
+    assert manifest.to_dict()["capabilities"] == ["customers.lookup"]
