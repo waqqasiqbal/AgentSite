@@ -48,3 +48,9 @@ The model sees capability descriptions and filtered results—not credentials, u
 The initial runtime in `src/agentsite` implements this contract without tying the core to a model vendor. A provider returns either a final answer or typed `ToolCall` objects. The runtime validates arguments, asks the policy engine for a decision, executes the server-side adapter, and returns a structured `ToolResult` to the provider.
 
 The next production layers are an HTTP transport, authentication, persistent audit events, real provider adapters, and a hardened sandbox for higher-risk tools.
+
+## Tenant-aware database queries
+
+AgentSite now includes an initial `TenantQueryFirewall`. It accepts only a small, parameterized `SELECT` subset, checks approved tables and columns, rejects writes and multi-statement SQL, caps `LIMIT`, and injects the tenant predicate from authenticated server context. See `src/agentsite/query_firewall.py`.
+
+This is a defense layer, not the only defense. Production deployments should also use a read-only database role, a read replica, database-native row-level security, network isolation, and redacted audit logs. Unsupported SQL should be rejected until it can be parsed and tested safely.
