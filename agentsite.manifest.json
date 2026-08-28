@@ -1,0 +1,14 @@
+{
+  "name": "example-company",
+  "display_name": "Example Company AgentSite",
+  "description": "A reference company agent with narrowly scoped customer capabilities.",
+  "protocol_version": "0.1",
+  "request_endpoint": "/v1/requests",
+  "capabilities_endpoint": "/.well-known/agentsite/capabilities",
+  "authentication": ["bearer"],
+  "capabilities": ["customers.lookup"],
+  "metadata": {
+    "supports_streaming": false,
+    "environment": "development"
+  }
+}
