@@ -3,6 +3,7 @@ from agentsite.models import AgentRequest, ModelTurn, ToolCall
 from agentsite.provider import ScriptedProvider
 from agentsite.runtime import AgentRuntime
 from agentsite.manifest import AgentManifest
+from examples.business_capabilities import build_reference_registry
 
 
 def registry():
@@ -70,3 +71,22 @@ def test_manifest_is_machine_readable():
         {"name": "demo", "display_name": "Demo", "description": "A demo", "capabilities": ["customers.lookup"]}
     )
     assert manifest.to_dict()["capabilities"] == ["customers.lookup"]
+
+
+def test_ecommerce_search_returns_current_product_details():
+    registry = build_reference_registry()
+    capability = registry.get("catalog.search_products")
+    result = capability.execute({"query": "headphones", "limit": 5}, {"tenant_id": "shop-1"})
+    assert result[0]["price"] == 129.0
+    assert result[0]["currency"] == "EUR"
+
+
+def test_insurance_quote_is_explicitly_non_binding():
+    registry = build_reference_registry()
+    capability = registry.get("insurance.create_quote")
+    result = capability.execute(
+        {"insurance_product": "travel", "customer_details": {"destination": "Spain"}},
+        {"tenant_id": "insurer-1"},
+    )
+    assert result["status"] == "non_binding"
+    assert capability.requires_approval is False
