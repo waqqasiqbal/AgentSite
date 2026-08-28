@@ -75,6 +75,8 @@ python examples/local_agent.py
 
 The resource boundary and connection patterns are described in [docs/resource-connection.md](docs/resource-connection.md). This is an early protocol/runtime experiment, not yet a production deployment package.
 
+Reference business capabilities for ecommerce product search and insurance quote creation are in [`examples/business_capabilities.py`](examples/business_capabilities.py), with the conversation-to-capability model documented in [docs/conversation-to-capability.md](docs/conversation-to-capability.md).
+
 ## Contributing
 
 The project is public and intended to be built openly. Start with the roadmap, open an issue to discuss substantial changes, and keep every capability explicit about its permissions, inputs, outputs, and side effects.
